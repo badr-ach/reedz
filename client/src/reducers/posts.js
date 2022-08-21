@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
 
 export const posts = (state = [],action)=>{
     switch(action.type){
