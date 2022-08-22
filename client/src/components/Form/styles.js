@@ -12,6 +12,8 @@ export default makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     form: {
+        overflow : 'hidden',
+        wordBreak : 'break-all',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',

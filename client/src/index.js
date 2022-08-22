@@ -8,11 +8,15 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers/index.js';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <Provider store={store}>
+  <GoogleOAuthProvider clientId="792032687392-j3hq14gcdmcv67qmr7nim48mjl0rbjgn.apps.googleusercontent.com">
+    <Provider store={store}>
       <App />
-    </Provider>,
-    document.getElementById('root')
+    </Provider>
+  </GoogleOAuthProvider>,
+  document.getElementById('root')
 )
