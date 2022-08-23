@@ -53,6 +53,7 @@ export const loadUser = async (req,res) =>{
 export const googleLogin = async (req,res) =>{
     const { email } = req.body;
 
+
     try {
         const oldUser = await UserModal.findOne({ email });
 
@@ -74,7 +75,7 @@ export const googleLogin = async (req,res) =>{
 }
 
 export const googleSignup = async (req,res) =>{
-    const { email, give_name, family_name } = req.body;
+    const { email, given_name, family_name } = req.body;
 
     try {
         const oldUser = await UserModal.findOne({ email });
@@ -83,7 +84,7 @@ export const googleSignup = async (req,res) =>{
 
         const hashedPassword = await bcrypt.hash(randomBytes(6).toString('hex'), 12);
 
-        const result = await UserModal.create({ email, password: hashedPassword, name: `${give_name} ${family_name}`,family_name:family_name,given_name:given_name });
+        const result = await UserModal.create({ email, password: hashedPassword, name: `${given_name} ${family_name}`,family_name:family_name,given_name:given_name });
 
         const data = result;
 

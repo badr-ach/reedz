@@ -4,29 +4,29 @@ import { AUTH, LOAD_USER, LOGOUT } from "../constants/actionTypes";
 
 export const googleLogin = (credentials,router) => async (dispatch) =>{
     try{
-        const {email:email} = decodeToken(credentials.credential);
+        const {email} = decodeToken(credentials.credential);
+        
+        const {data} = await api.googleLogin({email:email});
 
-        const {user,token} = await api.googleLogin(email);
+        dispatch({type:AUTH , payload:{user:data.user, token:data.token}});
 
-        dispatch({type:AUTH , payload:{user, token}});
-
-        router.push('/');
+        router('/');
     }catch(err){
-        console.log(err.message)
+        console.log(JSON.stringify(err));
     }
 } 
 
 export const googleSignup = (credentials,router) => async (dispatch) =>{
     try{
-        const data = decodeToken(credentials.credential);
+        const {email} = decodeToken(credentials.credential);
+        
+        const {data} = await api.googleSignup({email:email});
 
-        const {user,token} = await api.googleSignup(data);
+        dispatch({type:AUTH , payload:{user:data.user, token:data.token}});
 
-        dispatch({type:AUTH,payload:{user,token}});
-
-        router.push('/');
+        router('/');
     }catch(err){
-        console.log(err.message)
+        console.log(err)
     }
 }
 
@@ -40,14 +40,15 @@ export const logout = () => async (dispatch) =>{
 
 export const loadUser = (token) => async (dispatch) =>{
     try{
-        let user = null;
+        let res = null;
         if(localStorage.getItem('token')){
-            user = await api.loadUser();
+            console.log("test")
+            res = await api.loadUser();
         }
-        dispatch({type:LOAD_USER,payload:{user,token:token}})
+        dispatch({type:LOAD_USER,payload:{user:res?.data.user,token:token}})
     }catch(err){
         localStorage.removeItem('token');
-        console.log(err.message)
+        console.log(err)
     }
 }
 
@@ -58,7 +59,7 @@ export const signin = (formData, router) => async (dispatch) => {
   
       dispatch({ type: AUTH, payload : data });
   
-      router.push('/');
+      router('/');
 
     } catch (error) {
 
@@ -72,7 +73,7 @@ export const signin = (formData, router) => async (dispatch) => {
   
       dispatch({ type: AUTH, payload: data });
   
-      router.push('/');
+      router('/');
       
     } catch (error) {
 

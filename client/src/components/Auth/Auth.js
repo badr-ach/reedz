@@ -4,7 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Input from "./Input.js";
 import useStyles from './styles.js';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {googleLogin, googleSignup} from '../../actions/auth.js';
 import { signin, signup } from '../../actions/auth';
@@ -24,8 +24,9 @@ const Auth = () => {
     const user = useSelector((state)=>state.authReducer.user);
 
     useEffect(()=>{
-        if(user)
-            history('/');
+        if(user){
+            history("/posts");
+        }
     },[user])
 
     const [showPassword, setShowPassword] = useState(false);

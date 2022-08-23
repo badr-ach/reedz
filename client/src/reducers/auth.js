@@ -9,6 +9,7 @@ export const authReducer = (state = { user : null } ,action) =>{
             localStorage.removeItem('token');
             return { user : null} ;
         case LOAD_USER :
+            console.log(action.payload.user)
             return { user : action.payload.user}
         default : 
             return state;
